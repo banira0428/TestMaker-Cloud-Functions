@@ -103,6 +103,28 @@ export const parseCSV = function (text: string): Test {
                         }
                     );
                     break;
+                case '選択A':
+
+                    const sizeOfAutoSelectOthers = parseInt(textColumns[3], 10);
+
+                    if (isNaN(sizeOfAutoSelectOthers)) break;
+                    if (sizeOfAutoSelectOthers > 5) break;
+
+                    test.questions.push(
+                        {
+                            question: textColumns[1],
+                            answer: textColumns[2],
+                            answers: [],
+                            explanation: "",
+                            imagePath: "",
+                            isAutoGenerateOthers: true,
+                            isCheckOrder: false,
+                            order: test.questions.length,
+                            others: Array(sizeOfAutoSelectOthers).fill('自動生成'),
+                            type: 1,
+                        }
+                    );
+                    break;
                 case '完答':
                 case '記述A':
                     test.questions.push(

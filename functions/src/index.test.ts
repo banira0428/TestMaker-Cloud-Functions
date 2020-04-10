@@ -40,7 +40,7 @@ test('選択問題', () => {
                 isAutoGenerateOthers: false,
                 isCheckOrder: false,
                 order: 0,
-                others: ['はずれ','はずれ'],
+                others: ['はずれ', 'はずれ'],
                 type: 1,
             }
         ]
@@ -60,7 +60,7 @@ test('選択問題（末尾削除）', () => {
                 isAutoGenerateOthers: false,
                 isCheckOrder: false,
                 order: 0,
-                others: ['はずれ','はずれ','はずれ','はずれ','はずれ'],
+                others: ['はずれ', 'はずれ', 'はずれ', 'はずれ', 'はずれ'],
                 type: 1,
             }
         ]
@@ -74,7 +74,7 @@ test('完答問題', () => {
             {
                 question: '問題',
                 answer: '答え1\n答え2',
-                answers: ['答え1','答え2'],
+                answers: ['答え1', '答え2'],
                 explanation: "",
                 imagePath: "",
                 isAutoGenerateOthers: false,
@@ -94,7 +94,7 @@ test('完答問題（末尾削除）', () => {
             {
                 question: '問題',
                 answer: '答え1\n答え2\n答え3\n答え4',
-                answers: ['答え1','答え2','答え3','答え4'],
+                answers: ['答え1', '答え2', '答え3', '答え4'],
                 explanation: "",
                 imagePath: "",
                 isAutoGenerateOthers: false,
@@ -114,7 +114,7 @@ test('選択完答問題', () => {
             {
                 question: '問題',
                 answer: '答え1\n答え2',
-                answers: ['答え1','答え2'],
+                answers: ['答え1', '答え2'],
                 explanation: "",
                 imagePath: "",
                 isAutoGenerateOthers: false,
@@ -148,14 +148,48 @@ test('選択完答問題（末尾削除）', () => {
             {
                 question: '問題',
                 answer: '答え1\n答え2\n答え3',
-                answers: ['答え1','答え2','答え3'],
+                answers: ['答え1', '答え2', '答え3'],
                 explanation: "",
                 imagePath: "",
                 isAutoGenerateOthers: false,
                 isCheckOrder: false,
                 order: 0,
-                others: ['はずれ1','はずれ2','はずれ3'],
+                others: ['はずれ1', 'はずれ2', 'はずれ3'],
                 type: 3,
+            }
+        ]
+    })
+});
+
+test('選択問題（自動生成かつ要素数オーバー）', () => {
+    expect(parseCSV('選択A,問題,答え,6')).toStrictEqual({
+        title: '',
+        questions: []
+    })
+});
+
+test('選択問題（自動生成かつ変換不可能）', () => {
+    expect(parseCSV('選択A,問題,答え,あ')).toStrictEqual({
+        title: '',
+        questions: []
+    })
+});
+
+test('選択問題（自動生成かつ変換不可能）', () => {
+    expect(parseCSV('選択A,問題,答え,3')).toStrictEqual({
+        title: '',
+        questions: [
+            {
+                question: '問題',
+                answer: '答え',
+                answers: [],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: true,
+                isCheckOrder: false,
+                order: 0,
+                others: ['自動生成', '自動生成','自動生成'],
+                type: 1,
             }
         ]
     })
