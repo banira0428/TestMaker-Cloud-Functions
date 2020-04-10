@@ -90,6 +90,22 @@ export const parseCSV = function (text: string): Test {
                         }
                     );
                     break;
+                case '選択':
+                    test.questions.push(
+                        {
+                            question: textColumns[1],
+                            answer: textColumns[2],
+                            answers: [],
+                            explanation: "",
+                            imagePath: "",
+                            isAutoGenerateOthers: false,
+                            isCheckOrder: false,
+                            order: test.questions.length,
+                            others: textColumns.slice(3,8),
+                            type: 1,
+                        }
+                    );
+                    break;
 
             }
 
