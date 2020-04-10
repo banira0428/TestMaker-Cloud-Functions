@@ -66,3 +66,44 @@ test('選択問題（末尾削除）', () => {
         ]
     })
 });
+
+test('完答問題', () => {
+    expect(parseCSV('完答,問題,答え1,答え2')).toStrictEqual({
+        title: '',
+        questions: [
+            {
+                question: '問題',
+                answer: '答え1\n答え2',
+                answers: ['答え1','答え2'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 0,
+                others: [],
+                type: 2,
+            }
+        ]
+    })
+});
+
+test('完答問題（末尾削除）', () => {
+    expect(parseCSV('完答,問題,答え1,答え2,答え3,答え4,答え5')).toStrictEqual({
+        title: '',
+        questions: [
+            {
+                question: '問題',
+                answer: '答え1\n答え2\n答え3\n答え4',
+                answers: ['答え1','答え2','答え3','答え4'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 0,
+                others: [],
+                type: 2,
+            }
+        ]
+    })
+});
+

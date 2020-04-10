@@ -106,9 +106,24 @@ export const parseCSV = function (text: string): Test {
                         }
                     );
                     break;
-
+                case '完答':
+                case '記述A':
+                    test.questions.push(
+                        {
+                            question: textColumns[1],
+                            answer: textColumns.slice(2,6).join('\n'),
+                            answers: textColumns.slice(2,6),
+                            explanation: "",
+                            imagePath: "",
+                            isAutoGenerateOthers: false,
+                            isCheckOrder: false,
+                            order: test.questions.length,
+                            others: [],
+                            type: 2,
+                        }
+                    );
+                    break;
             }
-
         }
     );
 
