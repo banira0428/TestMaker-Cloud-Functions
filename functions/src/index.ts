@@ -72,26 +72,6 @@ function deleteQueryBatch(db: Firestore, query: Query, batchSize: number, resolv
             // Delete documents in a batch
             const batch = db.batch();
             snapshot.docs.forEach((doc) => {
-
-                // if (doc.data().imageRef !== "") {
-                //     const file = admin.storage().bucket("gs://testmaker-1cb29.appspot.com/").file(doc.data().imageRef);
-
-                //     if (file !== null) {
-                //         console.log(file.name);
-                //         file.delete().then(() => {
-                //             console.log("deleted");
-                //             resolve();
-                //             return;
-                //         }).catch(() => {
-                //             console.log("failed");
-                //             reject();
-                //             return;
-                //         });
-                //     }
-
-
-                // }
-
                 batch.delete(doc.ref);
             });
 
