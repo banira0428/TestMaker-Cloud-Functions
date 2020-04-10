@@ -107,3 +107,57 @@ test('完答問題（末尾削除）', () => {
     })
 });
 
+test('選択完答問題', () => {
+    expect(parseCSV('選択完答,問題,2,1,答え1,答え2,はずれ1')).toStrictEqual({
+        title: '',
+        questions: [
+            {
+                question: '問題',
+                answer: '答え1\n答え2',
+                answers: ['答え1','答え2'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 0,
+                others: ['はずれ1'],
+                type: 3,
+            }
+        ]
+    })
+});
+
+test('選択完答問題（変換不可）', () => {
+    expect(parseCSV('選択完答,問題,あ,1,答え1,答え2,はずれ1')).toStrictEqual({
+        title: '',
+        questions: []
+    })
+});
+
+test('選択完答問題（要素数オーバー）', () => {
+    expect(parseCSV('選択完答,問題,4,3,答え1,答え2,はずれ1')).toStrictEqual({
+        title: '',
+        questions: []
+    })
+});
+
+test('選択完答問題（末尾削除）', () => {
+    expect(parseCSV('選択完答,問題,3,3,答え1,答え2,答え3,はずれ1,はずれ2,はずれ3,はずれ4')).toStrictEqual({
+        title: '',
+        questions: [
+            {
+                question: '問題',
+                answer: '答え1\n答え2\n答え3',
+                answers: ['答え1','答え2','答え3'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 0,
+                others: ['はずれ1','はずれ2','はずれ3'],
+                type: 3,
+            }
+        ]
+    })
+});
+

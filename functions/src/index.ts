@@ -9,9 +9,6 @@ exports.deleteTest = functions.firestore
     .document('tests/{documentId}')
     .onDelete((snap, context) => {
 
-        // Get an object representing the document prior to deletion
-        // e.g. {'name': 'Marie', 'age': 66}
-        //const deletedValue = snap.data();
         const db = admin.firestore();
 
         const data = snap.data();
@@ -101,7 +98,7 @@ export const parseCSV = function (text: string): Test {
                             isAutoGenerateOthers: false,
                             isCheckOrder: false,
                             order: test.questions.length,
-                            others: textColumns.slice(3,8),
+                            others: textColumns.slice(3, 8),
                             type: 1,
                         }
                     );
@@ -111,8 +108,8 @@ export const parseCSV = function (text: string): Test {
                     test.questions.push(
                         {
                             question: textColumns[1],
-                            answer: textColumns.slice(2,6).join('\n'),
-                            answers: textColumns.slice(2,6),
+                            answer: textColumns.slice(2, 6).join('\n'),
+                            answers: textColumns.slice(2, 6),
                             explanation: "",
                             imagePath: "",
                             isAutoGenerateOthers: false,
@@ -123,6 +120,30 @@ export const parseCSV = function (text: string): Test {
                         }
                     );
                     break;
+                case '選択完答':
+
+                    const sizeOfAnswers = parseInt(textColumns[2], 10);
+                    const sizeOfOthers = parseInt(textColumns[3], 10);
+
+                    if (isNaN(sizeOfAnswers) && isNaN(sizeOfOthers)) break;
+                    if (sizeOfAnswers + sizeOfOthers > 6) break;
+
+                    test.questions.push(
+                        {
+                            question: textColumns[1],
+                            answer: textColumns.slice(4, 4 + sizeOfAnswers).join('\n'),
+                            answers: textColumns.slice(4, 4 + sizeOfAnswers),
+                            explanation: "",
+                            imagePath: "",
+                            isAutoGenerateOthers: false,
+                            isCheckOrder: false,
+                            order: test.questions.length,
+                            others: textColumns.slice(4 + sizeOfAnswers, 4 + sizeOfAnswers + sizeOfOthers),
+                            type: 3,
+                        }
+                    );
+                    break;
+
             }
         }
     );
