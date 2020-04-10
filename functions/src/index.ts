@@ -63,7 +63,8 @@ export const parseCSV = function (text: string): Test {
     //todo ローカライズしろ！
     const textRows = text.split('\n');
     const test: Test = {
-        title: ''
+        title: '',
+        questions: []
     };
 
     textRows.forEach((row) => {
@@ -71,6 +72,27 @@ export const parseCSV = function (text: string): Test {
             if (textColumns[0] === 'タイトル') {
                 test.title = textColumns[1];
             }
+
+            switch (textColumns[0]) {
+                case '記述':
+                    test.questions.push(
+                        {
+                            question: textColumns[1],
+                            answer: textColumns[2],
+                            answers: [],
+                            explanation: "",
+                            imagePath: "",
+                            isAutoGenerateOthers: false,
+                            isCheckOrder: false,
+                            order: test.questions.length,
+                            others: [],
+                            type: 0,
+                        }
+                    );
+                    break;
+
+            }
+
         }
     );
 
@@ -123,4 +145,18 @@ function deleteQueryBatch(db: Firestore, query: Query, batchSize: number, resolv
 
 interface Test {
     title: string
+    questions: Question[]
+}
+
+interface Question {
+    question: string
+    answer: string
+    explanation: string
+    answers: string[]
+    others: string[]
+    type: number
+    isAutoGenerateOthers: boolean
+    order: number
+    isCheckOrder: boolean
+    imagePath: string
 }
