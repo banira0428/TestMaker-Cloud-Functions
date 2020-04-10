@@ -195,3 +195,38 @@ test('選択問題（自動生成かつ変換不可能）', () => {
     })
 });
 
+test('選択問題（自動生成かつ変換不可能）', () => {
+    expect(parseCSV('選択完答A,問題,あ,答え,答え')).toStrictEqual({
+        title: '',
+        questions: []
+    })
+});
+
+test('選択問題（自動生成かつ要素数オーバー）', () => {
+    expect(parseCSV('選択完答A,問題,3,答え,答え,答え,答え')).toStrictEqual({
+        title: '',
+        questions: []
+    })
+});
+
+test('選択問題（自動生成）', () => {
+    expect(parseCSV('選択完答A,問題,2,答え1,答え2,答え3,答え4')).toStrictEqual({
+        title: '',
+        questions: [
+            {
+                question: '問題',
+                answer: '答え1\n答え2\n答え3\n答え4',
+                answers: ['答え1','答え2','答え3','答え4'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: true,
+                isCheckOrder: false,
+                order: 0,
+                others: ['自動生成', '自動生成'],
+                type: 3,
+            }
+        ]
+    })
+});
+
+

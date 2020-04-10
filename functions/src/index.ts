@@ -166,6 +166,29 @@ export const parseCSV = function (text: string): Test {
                     );
                     break;
 
+                case '選択完答A':
+
+                    const sizeOfAutoSelectCompleteOthers = parseInt(textColumns[2], 10);
+
+                    if (isNaN(sizeOfAutoSelectCompleteOthers)) break;
+                    if (sizeOfAutoSelectCompleteOthers + (textColumns.length - 3) > 6) break;
+
+                    test.questions.push(
+                        {
+                            question: textColumns[1],
+                            answer: textColumns.slice(3, 9).join('\n'),
+                            answers: textColumns.slice(3, 9),
+                            explanation: "",
+                            imagePath: "",
+                            isAutoGenerateOthers: true,
+                            isCheckOrder: false,
+                            order: test.questions.length,
+                            others: Array(sizeOfAutoSelectCompleteOthers).fill('自動生成'),
+                            type: 3,
+                        }
+                    );
+                    break;
+
             }
         }
     );
