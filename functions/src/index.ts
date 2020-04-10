@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { Firestore, Query } from '@google-cloud/firestore';
+import {Firestore, Query} from '@google-cloud/firestore';
+import {Test} from "tslint";
 
 admin.initializeApp();
 
@@ -20,6 +21,8 @@ exports.deleteTest = functions.firestore
             size = data.size as number
         }
         deleteCollection(db, snap.id, size);
+
+        return;
         // perform desired operations ...
     });
 
@@ -33,12 +36,11 @@ exports.deleteQuestion = functions.firestore
             const deleteImage: string = data.imageRef
 
             const bucket = admin.storage().bucket();
-    
+
             console.log(deleteImage);
 
             return new Promise((resolve, reject) => {
                 bucket.file(deleteImage).delete().then(() => {
-                    console.log("deleted");
                     resolve();
                     return;
                 }).catch(() => {
@@ -46,11 +48,34 @@ exports.deleteQuestion = functions.firestore
                     return;
                 });
             });
-        }else{
+        } else {
             return;
         }
-    
+
     });
+
+exports.textToTest = functions.https.onRequest((req, res) => {
+    const csvText = req.body.text;
+    res.status(200).send(parseCSV(csvText));
+});
+
+export const parseCSV = function (text: string): Test {
+    //todo ローカライズしろ！
+    const textRows = text.split('\n');
+    const test: Test = {
+        title: ''
+    };
+
+    textRows.forEach((row) => {
+            const textColumns = row.split(',').filter((it: string) => it.length > 0);
+            if (textColumns[0] === 'タイトル') {
+                test.title = textColumns[1];
+            }
+        }
+    );
+
+    return test
+};
 
 function deleteCollection(db: Firestore, testId: string, batchSize: number) {
     const collectionRef = db.collection("tests").doc(testId).collection("questions");
@@ -79,19 +104,23 @@ function deleteQueryBatch(db: Firestore, query: Query, batchSize: number, resolv
                 return snapshot.size;
             })
         }).then((numDeleted) => {
-            if (numDeleted === 0) {
-                resolve();
-                return;
-            }
+        if (numDeleted === 0) {
+            resolve();
+            return;
+        }
 
-            // Recurse on the next process tick, to avoid
-            // exploding the stack.
-            process.nextTick(() => {
-                deleteQueryBatch(db, query, batchSize, resolve, reject);
-            });
-        }).catch(() => {
-            reject();
+        // Recurse on the next process tick, to avoid
+        // exploding the stack.
+        process.nextTick(() => {
+            deleteQueryBatch(db, query, batchSize, resolve, reject);
         });
+    }).catch(() => {
+        reject();
+    });
 
     return 0;
+}
+
+interface Test {
+    title: string
 }
