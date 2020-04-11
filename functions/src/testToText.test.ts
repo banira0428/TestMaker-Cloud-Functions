@@ -6,7 +6,7 @@ test('問題集のタイトル', () => {
         questions: []
     })).toStrictEqual(
         {
-            text: "タイトル,問題集"
+            text: "タイトル,問題集¥n"
         }
     )
 });
@@ -175,6 +175,30 @@ test('解説つき問題', () => {
     })).toStrictEqual(
         {
             text: "タイトル,問題集¥n記述,問題,答え¥n解説,解説文です¥n"
+        }
+    )
+});
+
+test('エスケープ文字つき問題', () => {
+    expect(generateCSV({
+        title: "問題集",
+        questions: [
+            {
+                question: '問題¥nで,す',
+                answer: '答え',
+                answers: [],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 0,
+                others: [],
+                type: 0,
+            }
+        ]
+    })).toStrictEqual(
+        {
+            text: "タイトル,問題集¥n記述,問題&lt;br>で&lt;comma>す,答え¥n"
         }
     )
 });

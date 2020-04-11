@@ -13,23 +13,23 @@ export const generateCSV = function (test: Test, lang: string = "ja"): Text {
     test.questions.forEach((it: Question) => {
         switch (it.type) {
             case 0:
-                result += strings.write_problem[lang] + ',' + it.question + ',' + it.answer + '¥n';
+                result += strings.write_problem[lang] + ',' + escape(it.question) + ',' + it.answer + '¥n';
                 break;
             case 1:
                 if(it.isAutoGenerateOthers){
-                    result += strings.select_auto_problem[lang] + ',' + it.question + ',' + it.answer + ',' + it.others.length + '¥n';
+                    result += strings.select_auto_problem[lang] + ',' + escape(it.question) + ',' + escape(it.answer) + ',' + it.others.length + '¥n';
                 }else{
-                    result += strings.select_problem[lang] + ',' + it.question + ',' + it.answer + ',' + it.others.join(',') + '¥n';
+                    result += strings.select_problem[lang] + ',' + escape(it.question) + ',' + escape(it.answer) + ',' + it.others.map(escape).join(',') + '¥n';
                 }
                 break;
             case 2:
-                result += strings.complete_problem[lang] + ',' + it.question + ',' + it.answers.join(',') + '¥n';
+                result += strings.complete_problem[lang] + ',' + escape(it.question) + ',' + it.answers.join(',') + '¥n';
                 break;
             case 3:
                 if(it.isAutoGenerateOthers){
-                    result += strings.select_complete_auto_problem[lang] + ',' + it.question + ',' + it.others.length + ',' + it.answers.join(',') + '¥n';
+                    result += strings.select_complete_auto_problem[lang] + ',' + escape(it.question) + ',' + it.others.length + ',' + it.answers.map(escape).join(',') + '¥n';
                 }else{
-                    result += strings.select_complete_problem[lang] + ',' + it.question + ',' + it.answers.length + ',' + it.others.length + ',' + it.answers.join(',') + ',' + it.others.join(',') +'¥n';
+                    result += strings.select_complete_problem[lang] + ',' + escape(it.question) + ',' + it.answers.length + ',' + it.others.length + ',' + it.answers.map(escape).join(',') + ',' + it.others.map(escape).join(',') +'¥n';
                 }
                 break;
 
@@ -41,3 +41,7 @@ export const generateCSV = function (test: Test, lang: string = "ja"): Text {
 
     return {text: result} as Text
 };
+
+function escape(text: string): string {
+    return text.split('¥n').join('&lt;br>').split(',').join('&lt;comma>');
+}
