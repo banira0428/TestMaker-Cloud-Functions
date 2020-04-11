@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import {Firestore, Query} from '@google-cloud/firestore';
-import {Test} from "./Test";
+import {Test} from "./Interfaces";
 import {testToText} from "./testToText";
 import {strings} from "./strings";
 
@@ -55,12 +55,12 @@ exports.deleteQuestion = functions.firestore
 
 exports.textToTest = functions.https.onRequest((req, res) => {
     const csvText = req.body.text;
-    res.status(200).send(parseCSV(csvText,req.body.lang));
+    res.status(200).send(parseCSV(csvText, req.body.lang));
 });
 
 exports.testToText = testToText;
 
-export const parseCSV = function (text: string,lang: string = "ja"): Test {
+export const parseCSV = function (text: string, lang: string = "ja"): Test {
     const textRows = text.split('¥n');
     const test: Test = {
         title: 'no title',

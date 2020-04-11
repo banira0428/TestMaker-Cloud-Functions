@@ -1,4 +1,4 @@
-import {Test, Text, Question} from './Test'
+import {Test, Text, Question} from './Interfaces'
 import * as functions from "firebase-functions";
 import {strings} from "./strings";
 
