@@ -23,6 +23,7 @@ export const generateCSV = function (test: Test, lang: string = "ja"): Text {
                 }
                 break;
             case 2:
+                result += strings.complete_problem[lang] + ',' + it.question + ',' + it.answers.join(',') + '¥n';
                 break;
             case 3:
                 break;
