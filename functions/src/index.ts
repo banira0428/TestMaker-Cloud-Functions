@@ -83,7 +83,7 @@ export const parseCSV = function (text: string): Test {
             switch (textColumns[0]) {
                 case '記述':
 
-                    if(textColumns.length < 3) break;
+                    if (textColumns.length < 3) break;
 
                     test.questions.push(
                         {
@@ -102,7 +102,7 @@ export const parseCSV = function (text: string): Test {
                     break;
                 case '選択':
 
-                    if(textColumns.length < 4) break;
+                    if (textColumns.length < 4) break;
 
                     test.questions.push(
                         {
@@ -121,7 +121,7 @@ export const parseCSV = function (text: string): Test {
                     break;
                 case '選択A':
 
-                    if(textColumns.length < 4) break;
+                    if (textColumns.length < 4) break;
 
                     const sizeOfAutoSelectOthers = parseInt(textColumns[3], 10);
 
@@ -146,7 +146,7 @@ export const parseCSV = function (text: string): Test {
                 case '完答':
                 case '記述A':
 
-                    if(textColumns.length < 4) break;
+                    if (textColumns.length < 4) break;
 
                     test.questions.push(
                         {
@@ -165,7 +165,7 @@ export const parseCSV = function (text: string): Test {
                     break;
                 case '選択完答':
 
-                    if(textColumns.length < 5) break;
+                    if (textColumns.length < 5) break;
 
                     const sizeOfAnswers = parseInt(textColumns[2], 10);
                     const sizeOfOthers = parseInt(textColumns[3], 10);
@@ -191,7 +191,7 @@ export const parseCSV = function (text: string): Test {
 
                 case '選択完答A':
 
-                    if(textColumns.length < 3) break;
+                    if (textColumns.length < 3) break;
 
                     const sizeOfAutoSelectCompleteOthers = parseInt(textColumns[2], 10);
 
