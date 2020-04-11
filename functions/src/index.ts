@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import {Firestore, Query} from '@google-cloud/firestore';
-import {Test} from "tslint";
+import {Test} from "./Test";
 
 admin.initializeApp();
 
@@ -263,22 +263,4 @@ function deleteQueryBatch(db: Firestore, query: Query, batchSize: number, resolv
     });
 
     return 0;
-}
-
-interface Test {
-    title: string
-    questions: Question[]
-}
-
-interface Question {
-    question: string
-    answer: string
-    explanation: string
-    answers: string[]
-    others: string[]
-    type: number
-    isAutoGenerateOthers: boolean
-    order: number
-    isCheckOrder: boolean
-    imagePath: string
 }
