@@ -6,11 +6,11 @@ export const testToText = functions.https.onRequest((req, res) => {
     console.log(
         req.body
     );
-    res.status(200).send(generateCSV(req.body.test));
+    res.status(200).send(generateCSV(req.body));
 });
 
 export const generateCSV = function (test: Test): Text {
-    const lang = test.lang;
+    const lang: string = test.lang;
     let result: string = "";
     result += strings.title[lang] + ',' + test.title + '\n';
 
