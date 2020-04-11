@@ -170,7 +170,7 @@ export const parseCSV = function (text: string): Test {
                     const sizeOfAnswers = parseInt(textColumns[2], 10);
                     const sizeOfOthers = parseInt(textColumns[3], 10);
 
-                    if (isNaN(sizeOfAnswers) && isNaN(sizeOfOthers)) break;
+                    if (isNaN(sizeOfAnswers) || isNaN(sizeOfOthers)) break;
                     if (sizeOfAnswers + sizeOfOthers > 6) break;
 
                     test.questions.push(
