@@ -17,7 +17,7 @@ export const generateCSV = function (test: Test, lang: string = "ja"): Text {
                 break;
             case 1:
                 if(it.isAutoGenerateOthers){
-
+                    result += strings.select_auto_problem[lang] + ',' + it.question + ',' + it.answer + ',' + it.others.length + '¥n';
                 }else{
                     result += strings.select_problem[lang] + ',' + it.question + ',' + it.answer + ',' + it.others.join(',') + '¥n';
                 }
