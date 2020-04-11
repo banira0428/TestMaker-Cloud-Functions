@@ -8,34 +8,34 @@ export const testToText = functions.https.onRequest((req, res) => {
 
 export const generateCSV = function (test: Test, lang: string = "ja"): Text {
     let result: string = "";
-    result += strings.title[lang] + ',' + test.title + '¥n';
+    result += strings.title[lang] + ',' + test.title + '\n';
 
     test.questions.forEach((it: Question) => {
         switch (it.type) {
             case 0:
-                result += strings.write_problem[lang] + ',' + escape(it.question) + ',' + it.answer + '¥n';
+                result += strings.write_problem[lang] + ',' + escape(it.question) + ',' + it.answer + '\n';
                 break;
             case 1:
                 if(it.isAutoGenerateOthers){
-                    result += strings.select_auto_problem[lang] + ',' + escape(it.question) + ',' + escape(it.answer) + ',' + it.others.length + '¥n';
+                    result += strings.select_auto_problem[lang] + ',' + escape(it.question) + ',' + escape(it.answer) + ',' + it.others.length + '\n';
                 }else{
-                    result += strings.select_problem[lang] + ',' + escape(it.question) + ',' + escape(it.answer) + ',' + it.others.map(escape).join(',') + '¥n';
+                    result += strings.select_problem[lang] + ',' + escape(it.question) + ',' + escape(it.answer) + ',' + it.others.map(escape).join(',') + '\n';
                 }
                 break;
             case 2:
-                result += strings.complete_problem[lang] + ',' + escape(it.question) + ',' + it.answers.join(',') + '¥n';
+                result += strings.complete_problem[lang] + ',' + escape(it.question) + ',' + it.answers.join(',') + '\n';
                 break;
             case 3:
                 if(it.isAutoGenerateOthers){
-                    result += strings.select_complete_auto_problem[lang] + ',' + escape(it.question) + ',' + it.others.length + ',' + it.answers.map(escape).join(',') + '¥n';
+                    result += strings.select_complete_auto_problem[lang] + ',' + escape(it.question) + ',' + it.others.length + ',' + it.answers.map(escape).join(',') + '\n';
                 }else{
-                    result += strings.select_complete_problem[lang] + ',' + escape(it.question) + ',' + it.answers.length + ',' + it.others.length + ',' + it.answers.map(escape).join(',') + ',' + it.others.map(escape).join(',') +'¥n';
+                    result += strings.select_complete_problem[lang] + ',' + escape(it.question) + ',' + it.answers.length + ',' + it.others.length + ',' + it.answers.map(escape).join(',') + ',' + it.others.map(escape).join(',') +'\n';
                 }
                 break;
 
         }
         if(it.explanation.length > 0){
-            result += strings.explanation[lang] + ',' + it.explanation + '¥n'
+            result += strings.explanation[lang] + ',' + it.explanation + '\n'
         }
     });
 
