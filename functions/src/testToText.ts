@@ -3,10 +3,14 @@ import * as functions from "firebase-functions";
 import {strings} from "./strings";
 
 export const testToText = functions.https.onRequest((req, res) => {
-    res.status(200).send(generateCSV(req.body.test, req.body.lang));
+    console.log(
+        req.body
+    );
+    res.status(200).send(generateCSV(req.body.test));
 });
 
-export const generateCSV = function (test: Test, lang: string = "ja"): Text {
+export const generateCSV = function (test: Test): Text {
+    const lang = test.lang;
     let result: string = "";
     result += strings.title[lang] + ',' + test.title + '\n';
 

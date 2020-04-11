@@ -64,6 +64,7 @@ export const parseCSV = function (text: string,lang: string = "ja"): Test {
     const textRows = text.split('¥n');
     const test: Test = {
         title: 'no title',
+        lang: "ja",
         questions: []
     };
 

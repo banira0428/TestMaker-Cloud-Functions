@@ -1,5 +1,6 @@
 export interface Test {
     title: string
+    lang: string
     questions: Question[]
 }
 

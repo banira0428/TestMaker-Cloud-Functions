@@ -3,6 +3,7 @@ import {parseCSV} from "./index";
 test('問題集のタイトル', () => {
     expect(parseCSV('タイトル,問題集')).toStrictEqual({
         title: '問題集',
+        lang: "ja",
         questions: []
     })
 });
@@ -10,6 +11,7 @@ test('問題集のタイトル', () => {
 test('記述問題', () => {
     expect(parseCSV('記述,問題,答え')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -30,6 +32,7 @@ test('記述問題', () => {
 test('選択問題', () => {
     expect(parseCSV('選択,問題,答え,はずれ,はずれ')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -50,6 +53,7 @@ test('選択問題', () => {
 test('選択問題（末尾削除）', () => {
     expect(parseCSV('選択,問題,答え,はずれ,はずれ,はずれ,はずれ,はずれ,はずれ')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -70,6 +74,7 @@ test('選択問題（末尾削除）', () => {
 test('完答問題', () => {
     expect(parseCSV('完答,問題,答え1,答え2')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -90,6 +95,7 @@ test('完答問題', () => {
 test('完答問題（末尾削除）', () => {
     expect(parseCSV('完答,問題,答え1,答え2,答え3,答え4,答え5')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -110,6 +116,7 @@ test('完答問題（末尾削除）', () => {
 test('選択完答問題', () => {
     expect(parseCSV('選択完答,問題,2,1,答え1,答え2,はずれ1')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -130,6 +137,7 @@ test('選択完答問題', () => {
 test('選択完答問題（変換不可）', () => {
     expect(parseCSV('選択完答,問題,あ,1,答え1,答え2,はずれ1')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: []
     })
 });
@@ -137,6 +145,7 @@ test('選択完答問題（変換不可）', () => {
 test('選択完答問題（要素数オーバー）', () => {
     expect(parseCSV('選択完答,問題,4,3,答え1,答え2,はずれ1')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: []
     })
 });
@@ -144,6 +153,7 @@ test('選択完答問題（要素数オーバー）', () => {
 test('選択完答問題（末尾削除）', () => {
     expect(parseCSV('選択完答,問題,3,3,答え1,答え2,答え3,はずれ1,はずれ2,はずれ3,はずれ4')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -164,6 +174,7 @@ test('選択完答問題（末尾削除）', () => {
 test('選択問題（自動生成かつ要素数オーバー）', () => {
     expect(parseCSV('選択A,問題,答え,6')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: []
     })
 });
@@ -171,6 +182,7 @@ test('選択問題（自動生成かつ要素数オーバー）', () => {
 test('選択問題（自動生成かつ変換不可能）', () => {
     expect(parseCSV('選択A,問題,答え,あ')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: []
     })
 });
@@ -178,6 +190,7 @@ test('選択問題（自動生成かつ変換不可能）', () => {
 test('選択問題（自動生成かつ変換不可能）', () => {
     expect(parseCSV('選択A,問題,答え,3')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -198,6 +211,7 @@ test('選択問題（自動生成かつ変換不可能）', () => {
 test('選択問題（自動生成かつ変換不可能）', () => {
     expect(parseCSV('選択完答A,問題,あ,答え,答え')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: []
     })
 });
@@ -205,6 +219,7 @@ test('選択問題（自動生成かつ変換不可能）', () => {
 test('選択問題（自動生成かつ要素数オーバー）', () => {
     expect(parseCSV('選択完答A,問題,3,答え,答え,答え,答え')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: []
     })
 });
@@ -212,6 +227,7 @@ test('選択問題（自動生成かつ要素数オーバー）', () => {
 test('選択問題（自動生成）', () => {
     expect(parseCSV('選択完答A,問題,2,答え1,答え2,答え3,答え4')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -232,6 +248,7 @@ test('選択問題（自動生成）', () => {
 test('解説つき問題', () => {
     expect(parseCSV('タイトル,問題集¥n記述,問題,答え¥n解説,解説文')).toStrictEqual({
         title: '問題集',
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -252,6 +269,7 @@ test('解説つき問題', () => {
 test('解説つき問題', () => {
     expect(parseCSV('解説,解説文')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: []
     })
 });
@@ -259,6 +277,7 @@ test('解説つき問題', () => {
 test('コンマつき問題', () => {
     expect(parseCSV('記述,問題&lt;comma>文,答え')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題,文',
@@ -279,6 +298,7 @@ test('コンマつき問題', () => {
 test('改行つき問題', () => {
     expect(parseCSV('記述,問題&lt;br>文,答え')).toStrictEqual({
         title: 'no title',
+        lang: "ja",
         questions: [
             {
                 question: '問題\n文',

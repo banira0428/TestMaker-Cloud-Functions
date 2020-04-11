@@ -3,6 +3,7 @@ import {generateCSV} from "./testToText";
 test('問題集のタイトル', () => {
     expect(generateCSV({
         title: "問題集",
+        lang: "ja",
         questions: []
     })).toStrictEqual(
         {
@@ -14,6 +15,7 @@ test('問題集のタイトル', () => {
 test('記述問題', () => {
     expect(generateCSV({
         title: "問題集",
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -38,6 +40,7 @@ test('記述問題', () => {
 test('選択問題', () => {
     expect(generateCSV({
         title: "問題集",
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -62,6 +65,7 @@ test('選択問題', () => {
 test('選択問題（自動生成）', () => {
     expect(generateCSV({
         title: "問題集",
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -86,6 +90,7 @@ test('選択問題（自動生成）', () => {
 test('完答問題', () => {
     expect(generateCSV({
         title: "問題集",
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -110,6 +115,7 @@ test('完答問題', () => {
 test('選択完答問題', () => {
     expect(generateCSV({
         title: "問題集",
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -134,6 +140,7 @@ test('選択完答問題', () => {
 test('選択完答問題（自動生成）', () => {
     expect(generateCSV({
         title: "問題集",
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -158,6 +165,7 @@ test('選択完答問題（自動生成）', () => {
 test('解説つき問題', () => {
     expect(generateCSV({
         title: "問題集",
+        lang: "ja",
         questions: [
             {
                 question: '問題',
@@ -182,6 +190,7 @@ test('解説つき問題', () => {
 test('エスケープ文字つき問題', () => {
     expect(generateCSV({
         title: "問題集",
+        lang: "ja",
         questions: [
             {
                 question: '問題¥nで,す',
