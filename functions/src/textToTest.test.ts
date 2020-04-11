@@ -1,4 +1,4 @@
-import {parseCSV} from "./index";
+import {parseCSV} from "./textToTest";
 
 test('問題集のタイトル', () => {
     expect(parseCSV('タイトル,問題集')).toStrictEqual({
