@@ -34,3 +34,27 @@ test('記述問題', () => {
         }
     )
 });
+
+test('選択問題', () => {
+    expect(generateCSV({
+        title: "問題集",
+        questions: [
+            {
+                question: '問題',
+                answer: '答え',
+                answers: [],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 0,
+                others: ['はずれ', 'はずれ', 'はずれ'],
+                type: 1,
+            }
+        ]
+    })).toStrictEqual(
+        {
+            text: "タイトル,問題集¥n選択,問題,答え,はずれ,はずれ,はずれ¥n"
+        }
+    )
+});
