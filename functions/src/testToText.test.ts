@@ -154,3 +154,27 @@ test('選択完答問題（自動生成）', () => {
         }
     )
 });
+
+test('解説つき問題', () => {
+    expect(generateCSV({
+        title: "問題集",
+        questions: [
+            {
+                question: '問題',
+                answer: '答え',
+                answers: [],
+                explanation: "解説文です",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 0,
+                others: [],
+                type: 0,
+            }
+        ]
+    })).toStrictEqual(
+        {
+            text: "タイトル,問題集¥n記述,問題,答え¥n解説,解説文です¥n"
+        }
+    )
+});
