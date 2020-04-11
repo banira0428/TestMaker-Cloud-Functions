@@ -71,7 +71,7 @@ export const parseCSV = function (text: string,lang: string = "ja"): Test {
             const textColumns = row
                 .split(',')
                 .filter((it: string) => it.length > 0)
-                .map((it: string) => it.split('&lt;comma>').join(',').split('&lt;br>').join('¥n'));
+                .map((it: string) => it.split('&lt;comma>').join(',').split('&lt;br>').join('\n'));
 
             if (textColumns[0] === strings.title[lang]) {
                 test.title = textColumns[1];

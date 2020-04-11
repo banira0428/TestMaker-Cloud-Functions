@@ -281,7 +281,7 @@ test('改行つき問題', () => {
         title: 'no title',
         questions: [
             {
-                question: '問題¥n文',
+                question: '問題\n文',
                 answer: '答え',
                 answers: [],
                 explanation: '',
