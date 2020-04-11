@@ -3,7 +3,7 @@ export interface Test {
     questions: Question[]
 }
 
-interface Question {
+export interface Question {
     question: string
     answer: string
     explanation: string
@@ -14,4 +14,8 @@ interface Question {
     order: number
     isCheckOrder: boolean
     imagePath: string
+}
+
+export interface Text {
+    text: string
 }
