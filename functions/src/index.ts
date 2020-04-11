@@ -58,14 +58,15 @@ exports.textToTest = functions.https.onRequest((req, res) => {
 
 export const parseCSV = function (text: string): Test {
     //todo ローカライズしろ！
-    const textRows = text.split('\n');
+    //todo 問題文中の改行に対応！
+    const textRows = text.split('¥n');
     const test: Test = {
         title: '',
         questions: []
     };
 
     textRows.forEach((row) => {
-            const textColumns = row.split(',').filter((it: string) => it.length > 0);
+            const textColumns = row.split(',').filter((it: string) => it.length > 0).map((it: string) => it.split('&lt;comma>').join(','));
             if (textColumns[0] === 'タイトル') {
                 test.title = textColumns[1];
             }
