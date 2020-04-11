@@ -2,6 +2,8 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import {Firestore, Query} from '@google-cloud/firestore';
 import {Test} from "./Test";
+import {testToText} from "./testToText";
+import {strings} from "./strings";
 
 admin.initializeApp();
 
@@ -53,14 +55,15 @@ exports.deleteQuestion = functions.firestore
 
 exports.textToTest = functions.https.onRequest((req, res) => {
     const csvText = req.body.text;
-    res.status(200).send(parseCSV(csvText));
+    res.status(200).send(parseCSV(csvText,req.body.lang));
 });
 
-export const parseCSV = function (text: string): Test {
-    //todo ローカライズしろ！
+exports.testToText = testToText;
+
+export const parseCSV = function (text: string,lang: string = "ja"): Test {
     const textRows = text.split('¥n');
     const test: Test = {
-        title: '',
+        title: 'no title',
         questions: []
     };
 
@@ -70,18 +73,18 @@ export const parseCSV = function (text: string): Test {
                 .filter((it: string) => it.length > 0)
                 .map((it: string) => it.split('&lt;comma>').join(',').split('&lt;br>').join('¥n'));
 
-            if (textColumns[0] === 'タイトル') {
+            if (textColumns[0] === strings.title[lang]) {
                 test.title = textColumns[1];
             }
 
-            if (textColumns[0] === '解説') {
+            if (textColumns[0] === strings.explanation[lang]) {
                 if (test.questions.length > 0 && textColumns.length >= 2) {
                     test.questions[test.questions.length - 1].explanation = textColumns[1]
                 }
             }
 
             switch (textColumns[0]) {
-                case '記述':
+                case strings.write_problem[lang]:
 
                     if (textColumns.length < 3) break;
 
@@ -100,7 +103,7 @@ export const parseCSV = function (text: string): Test {
                         }
                     );
                     break;
-                case '選択':
+                case strings.select_problem[lang]:
 
                     if (textColumns.length < 4) break;
 
@@ -119,7 +122,7 @@ export const parseCSV = function (text: string): Test {
                         }
                     );
                     break;
-                case '選択A':
+                case strings.select_auto_problem[lang]:
 
                     if (textColumns.length < 4) break;
 
@@ -138,13 +141,13 @@ export const parseCSV = function (text: string): Test {
                             isAutoGenerateOthers: true,
                             isCheckOrder: false,
                             order: test.questions.length,
-                            others: Array(sizeOfAutoSelectOthers).fill('自動生成'),
+                            others: Array(sizeOfAutoSelectOthers).fill(strings.auto[lang]),
                             type: 1,
                         }
                     );
                     break;
-                case '完答':
-                case '記述A':
+                case strings.old_complete_problem[lang]:
+                case strings.complete_problem[lang]:
 
                     if (textColumns.length < 4) break;
 
@@ -163,7 +166,7 @@ export const parseCSV = function (text: string): Test {
                         }
                     );
                     break;
-                case '選択完答':
+                case strings.select_complete_problem[lang]:
 
                     if (textColumns.length < 5) break;
 
@@ -189,7 +192,7 @@ export const parseCSV = function (text: string): Test {
                     );
                     break;
 
-                case '選択完答A':
+                case strings.select_complete_auto_problem[lang]:
 
                     if (textColumns.length < 3) break;
 
@@ -208,7 +211,7 @@ export const parseCSV = function (text: string): Test {
                             isAutoGenerateOthers: true,
                             isCheckOrder: false,
                             order: test.questions.length,
-                            others: Array(sizeOfAutoSelectCompleteOthers).fill('自動生成'),
+                            others: Array(sizeOfAutoSelectCompleteOthers).fill(strings.auto[lang]),
                             type: 3,
                         }
                     );
