@@ -276,4 +276,24 @@ test('コンマつき問題', () => {
     })
 });
 
+test('改行つき問題', () => {
+    expect(parseCSV('記述,問題&lt;br>文,答え')).toStrictEqual({
+        title: '',
+        questions: [
+            {
+                question: '問題¥n文',
+                answer: '答え',
+                answers: [],
+                explanation: '',
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 0,
+                others: [],
+                type: 0,
+            }
+        ]
+    })
+});
+
 
