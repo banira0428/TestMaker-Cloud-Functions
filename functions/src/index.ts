@@ -49,7 +49,6 @@ exports.deleteQuestion = functions.firestore
         } else {
             return;
         }
-
     });
 
 exports.testToText = testToText;

@@ -3,9 +3,7 @@ import * as functions from "firebase-functions";
 import {strings} from "./strings";
 
 export const testToText = functions.https.onRequest((req, res) => {
-    console.log(
-        req.body
-    );
+    console.log(req.body);
     res.status(200).send(generateCSV(req.body));
 });
 

@@ -3,7 +3,8 @@ import {Test} from "./Interfaces";
 import {strings} from "./strings";
 
 export const textToTest = functions.https.onRequest((req, res) => {
-    const csvText = req.body.text;
+  console.log(req.body);
+  const csvText = req.body.text;
     res.status(200).send(parseCSV(csvText, req.body.lang));
 });
 
