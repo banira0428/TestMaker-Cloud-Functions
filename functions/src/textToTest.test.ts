@@ -316,4 +316,25 @@ test('改行つき問題', () => {
     })
 });
 
+test('改行つき問題(\r)', () => {
+    expect(parseCSV('記述,問題,答え\r')).toStrictEqual({
+        title: 'no title',
+        lang: "ja",
+        questions: [
+            {
+                question: '問題',
+                answer: '答え',
+                answers: [],
+                explanation: '',
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 0,
+                others: [],
+                type: 0,
+            }
+        ]
+    })
+});
+
 
