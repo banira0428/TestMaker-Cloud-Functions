@@ -3,8 +3,26 @@ import * as admin from 'firebase-admin';
 import {Firestore, Query} from '@google-cloud/firestore';
 import {testToText} from "./testToText";
 import {textToTest} from "./textToTest";
+import * as algolia from 'algoliasearch';
 
 admin.initializeApp();
+
+exports.onTestCreated = functions.firestore.document('tests/{documentId}').onCreate((snap, context) => {
+  const ALGOLIA_ID = functions.config().algolia.appid;
+  const ALGOLIA_ADMIN_KEY = functions.config().algolia.apikey;
+
+  const ALGOLIA_INDEX_NAME = 'TestMaker';
+  // @ts-ignore
+  const client = algolia(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
+
+  const data = snap.data();
+  if(data !== undefined){
+    data.objectID = snap.id;
+
+    const index = client.initIndex(ALGOLIA_INDEX_NAME);
+    return index.saveObject(data);
+  }
+});
 
 exports.deleteTest = functions.firestore
     .document('tests/{documentId}')
