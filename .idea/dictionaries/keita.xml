@@ -2,6 +2,7 @@
   <dictionary name="keita">
     <words>
       <w>algolia</w>
+      <w>axios</w>
     </words>
   </dictionary>
 </component>
