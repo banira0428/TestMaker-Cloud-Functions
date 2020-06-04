@@ -10,15 +10,7 @@ admin.initializeApp();
 exports.onTestCreated = functions.firestore.document('tests/{documentId}').onCreate((snap, context) => {
   const data = snap.data();
   if (data !== undefined) {
-    const client = axios.create({
-      baseURL: "https://test-maker-server.herokuapp.com/",
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      responseType: 'json'
-    });
-
+    const client = getClient();
     client.post('/tests', {
       name: data.name,
       color: data.color,
@@ -27,7 +19,9 @@ exports.onTestCreated = functions.firestore.document('tests/{documentId}').onCre
       comment: data.overview,
       user_id: data.userId,
       user_name: data.userName
-    }).then()
+    }).then().catch(function (error) {
+      console.log(error)
+    });
   }
   return;
 });
@@ -37,17 +31,21 @@ exports.deleteTest = functions.firestore
   .onDelete((snap, context) => {
 
     const db = admin.firestore();
-
     const data = snap.data();
     let size = 0;
 
     if (data !== undefined) {
-      size = data.size as number
-    }
-    deleteCollection(db, snap.id, size);
+      size = data.size as number;
+      deleteCollection(db, snap.id, size).catch(function (error) {
+        console.log(error)
+      });
 
+      const client = getClient();
+      client.delete('/tests/' + snap.id).then().catch(function (error) {
+        console.log(error)
+      });
+    }
     return;
-    // perform desired operations ...
   });
 
 exports.deleteQuestion = functions.firestore
@@ -123,4 +121,15 @@ function deleteQueryBatch(db: Firestore, query: Query, batchSize: number, resolv
   });
 
   return 0;
+}
+
+function getClient(){
+  return axios.create({
+    baseURL: "https://test-maker-server.herokuapp.com/",
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    responseType: 'json'
+  });
 }
