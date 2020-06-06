@@ -162,6 +162,56 @@ test('選択完答問題（自動生成）', () => {
     )
 });
 
+test('選択完答問題（順序指定）', () => {
+    expect(generateCSV({
+        title: "問題集",
+        lang: "ja",
+        questions: [
+            {
+                question: '問題',
+                answer: '答え',
+                answers: ['答え1','答え2','答え3','答え4'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: true,
+                order: 0,
+                others: ['はずれ1','はずれ2'],
+                type: 3,
+            }
+        ]
+    })).toStrictEqual(
+      {
+          text: "タイトル,問題集\n順序完答,問題,4,2,答え1,答え2,答え3,答え4,はずれ1,はずれ2\n"
+      }
+    )
+});
+
+test('選択完答問題（順序指定かつ自動生成）', () => {
+    expect(generateCSV({
+        title: "問題集",
+        lang: "ja",
+        questions: [
+            {
+                question: '問題',
+                answer: '答え',
+                answers: ['答え1','答え2','答え3','答え4'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: true,
+                isCheckOrder: true,
+                order: 0,
+                others: ['自動生成','自動生成'],
+                type: 3,
+            }
+        ]
+    })).toStrictEqual(
+      {
+          text: "タイトル,問題集\n順序完答A,問題,2,答え1,答え2,答え3,答え4\n"
+      }
+    )
+});
+
 test('解説つき問題', () => {
     expect(generateCSV({
         title: "問題集",
