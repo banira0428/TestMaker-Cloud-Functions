@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import {Test} from "./Interfaces";
 import {strings} from "./strings";
+import {WriteQuestionBuilder} from "./writeQuestionBuilder";
 
 export const textToTest = functions.https.onRequest((req, res) => {
   console.log(req.body);
@@ -39,22 +40,20 @@ export const parseCSV = function (text: string, lang: string = "ja"): Test {
       switch (textColumns[0]) {
         case strings.write_problem[lang]:
 
-          if (textColumns.length < 3) break;
+          const builder = new WriteQuestionBuilder(textColumns);
+          if (!builder.isValidLength()) break;
 
           test.questions.push(
-            {
-              question: textColumns[1],
-              answer: textColumns[2],
-              answers: [],
-              explanation: "",
-              imagePath: "",
-              isAutoGenerateOthers: false,
-              isCheckOrder: false,
-              order: test.questions.length,
-              others: [],
-              type: 0,
-            }
+            builder.setQuestion()
+              .setAnswer()
+              .setAnswers()
+              .setIsAutoGenerateOthers()
+              .setIsCheckOrder()
+              .setOthers()
+              .setOrder(test.questions.length)
+              .build()
           );
+
           break;
         case strings.select_problem[lang]:
 
