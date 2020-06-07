@@ -134,6 +134,27 @@ test('選択完答問題', () => {
     })
 });
 
+test('選択完答問題（順序指定）', () => {
+    expect(parseCSV('順序完答,問題,2,1,答え1,答え2,はずれ1')).toStrictEqual({
+        title: 'no title',
+        lang: "ja",
+        questions: [
+            {
+                question: '問題',
+                answer: '答え1\n答え2',
+                answers: ['答え1', '答え2'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: true,
+                order: 0,
+                others: ['はずれ1'],
+                type: 3,
+            }
+        ]
+    })
+});
+
 test('選択完答問題（変換不可）', () => {
     expect(parseCSV('選択完答,問題,あ,1,答え1,答え2,はずれ1')).toStrictEqual({
         title: 'no title',
