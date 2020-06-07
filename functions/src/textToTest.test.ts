@@ -92,6 +92,27 @@ test('完答問題', () => {
     })
 });
 
+test('完答問題（順序指定）', () => {
+    expect(parseCSV('完答O,問題,答え1,答え2')).toStrictEqual({
+        title: 'no title',
+        lang: "ja",
+        questions: [
+            {
+                question: '問題',
+                answer: '答え1\n答え2',
+                answers: ['答え1', '答え2'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: true,
+                order: 0,
+                others: [],
+                type: 2,
+            }
+        ]
+    })
+});
+
 test('完答問題（末尾削除）', () => {
     expect(parseCSV('完答,問題,答え1,答え2,答え3,答え4,答え5')).toStrictEqual({
         title: 'no title',

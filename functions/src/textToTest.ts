@@ -10,6 +10,7 @@ import {SelectCompleteQuestionBuilder} from "./selectCompleteQuestionBuilder";
 import {SelectCompleteAutoQuestionBuilder} from "./selectCompleteAutoQuestionBuilder";
 import {SelectCompleteOrderQuestionBuilder} from "./selectCompleteOrderQuestionBuilder";
 import {SelectCompleteAutoOrderQuestionBuilder} from "./selectCompleteOrderAutoQuestionBuilder";
+import {CompleteOrderQuestionBuilder} from "./completeOrderQuestionBuilder";
 
 export const textToTest = functions.https.onRequest((req, res) => {
   console.log(req.body);
@@ -209,6 +210,8 @@ function initQuestionBuilder(textColumns: string[], lang: string): QuestionBuild
     case strings.old_complete_problem[lang]:
     case strings.complete_problem[lang]:
       return new CompleteQuestionBuilder(textColumns);
+    case strings.complete_order_problem[lang]:
+      return new CompleteOrderQuestionBuilder(textColumns);
     case strings.select_complete_problem[lang]:
       return new SelectCompleteQuestionBuilder(textColumns);
     case strings.select_complete_auto_problem[lang]:
