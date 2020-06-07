@@ -24,7 +24,7 @@ export const strings = {
         en: "selection complete problem"
     } as LocalizedString,
     select_complete_order_problem: {
-        ja: "順序完答",
+        ja: "選択完答O",
         en: "selection complete order problem"
     } as LocalizedString,
     select_auto_problem: {
@@ -36,7 +36,7 @@ export const strings = {
         en: "selection complete auto problem"
     } as LocalizedString,
     select_complete_order_auto_problem: {
-        ja: "順序完答A",
+        ja: "選択完答AO",
         en: "selection complete order auto problem"
     } as LocalizedString,
     explanation: {

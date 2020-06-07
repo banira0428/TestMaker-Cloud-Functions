@@ -135,7 +135,7 @@ test('選択完答問題', () => {
 });
 
 test('選択完答問題（順序指定）', () => {
-    expect(parseCSV('順序完答,問題,2,1,答え1,答え2,はずれ1')).toStrictEqual({
+    expect(parseCSV('選択完答O,問題,2,1,答え1,答え2,はずれ1')).toStrictEqual({
         title: 'no title',
         lang: "ja",
         questions: [
@@ -229,7 +229,7 @@ test('選択問題（自動生成かつ変換不可能）', () => {
     })
 });
 
-test('選択問題（自動生成かつ変換不可能）', () => {
+test('選択完答問題（自動生成かつ変換不可能）', () => {
     expect(parseCSV('選択完答A,問題,あ,答え,答え')).toStrictEqual({
         title: 'no title',
         lang: "ja",
@@ -237,7 +237,7 @@ test('選択問題（自動生成かつ変換不可能）', () => {
     })
 });
 
-test('選択問題（自動生成かつ要素数オーバー）', () => {
+test('選択完答問題（自動生成かつ要素数オーバー）', () => {
     expect(parseCSV('選択完答A,問題,3,答え,答え,答え,答え')).toStrictEqual({
         title: 'no title',
         lang: "ja",
@@ -245,7 +245,7 @@ test('選択問題（自動生成かつ要素数オーバー）', () => {
     })
 });
 
-test('選択問題（自動生成）', () => {
+test('選択完答問題（自動生成）', () => {
     expect(parseCSV('選択完答A,問題,2,答え1,答え2,答え3,答え4')).toStrictEqual({
         title: 'no title',
         lang: "ja",
@@ -258,6 +258,27 @@ test('選択問題（自動生成）', () => {
                 imagePath: "",
                 isAutoGenerateOthers: true,
                 isCheckOrder: false,
+                order: 0,
+                others: ['自動生成', '自動生成'],
+                type: 3,
+            }
+        ]
+    })
+});
+
+test('選択完答問題（自動生成かつ順序指定）', () => {
+    expect(parseCSV('選択完答AO,問題,2,答え1,答え2,答え3,答え4')).toStrictEqual({
+        title: 'no title',
+        lang: "ja",
+        questions: [
+            {
+                question: '問題',
+                answer: '答え1\n答え2\n答え3\n答え4',
+                answers: ['答え1','答え2','答え3','答え4'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: true,
+                isCheckOrder: true,
                 order: 0,
                 others: ['自動生成', '自動生成'],
                 type: 3,
