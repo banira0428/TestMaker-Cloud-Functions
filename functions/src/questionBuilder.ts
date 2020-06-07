@@ -23,7 +23,7 @@ export abstract class QuestionBuilder {
     this.textColumns = textColumns;
   }
 
-  abstract isValidLength(text: string): boolean;
+  abstract isValidLength(): boolean;
 
   setQuestion(): QuestionBuilder {
     this.question.question = this.textColumns[1];

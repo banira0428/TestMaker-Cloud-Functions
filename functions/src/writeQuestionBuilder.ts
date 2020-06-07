@@ -4,6 +4,7 @@ export class WriteQuestionBuilder extends QuestionBuilder {
 
   constructor(textColumns: string[]){
     super(textColumns);
+    this.question.type = 0;
   }
 
   isValidLength(): boolean {
