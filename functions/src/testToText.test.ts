@@ -112,6 +112,31 @@ test('完答問題', () => {
     )
 });
 
+test('完答問題（順序指定）', () => {
+    expect(generateCSV({
+        title: "問題集",
+        lang: "ja",
+        questions: [
+            {
+                question: '問題',
+                answer: '答え',
+                answers: ['答え1','答え2','答え3','答え4'],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: true,
+                order: 0,
+                others: [],
+                type: 2,
+            }
+        ]
+    })).toStrictEqual(
+      {
+          text: "タイトル,問題集\n完答O,問題,答え1,答え2,答え3,答え4\n"
+      }
+    )
+});
+
 test('選択完答問題', () => {
     expect(generateCSV({
         title: "問題集",

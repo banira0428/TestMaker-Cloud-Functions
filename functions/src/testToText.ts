@@ -25,7 +25,12 @@ export const generateCSV = function (test: Test): Text {
         }
         break;
       case 2:
-        result += strings.complete_problem[lang] + ',' + escape(it.question) + ',' + it.answers.join(',') + '\n';
+        if(it.isCheckOrder){
+          result += strings.complete_order_problem[lang]
+        }else{
+          result += strings.complete_problem[lang]
+        }
+        result += ',' + escape(it.question) + ',' + it.answers.join(',') + '\n';
         break;
       case 3:
         if (it.isAutoGenerateOthers) {
