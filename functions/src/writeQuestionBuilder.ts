@@ -7,7 +7,7 @@ export class WriteQuestionBuilder extends QuestionBuilder {
     this.question.type = 0;
   }
 
-  isValidLength(): boolean {
+  isValidInput(): boolean {
     return this.textColumns.length >= 3
   }
 
@@ -28,7 +28,7 @@ export class WriteQuestionBuilder extends QuestionBuilder {
     return this;
   }
 
-  setOthers(): QuestionBuilder {
+  setOthers(lang: string): QuestionBuilder {
     return this;
   }
 }

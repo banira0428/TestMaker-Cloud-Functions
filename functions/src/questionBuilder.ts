@@ -23,7 +23,7 @@ export abstract class QuestionBuilder {
     this.textColumns = textColumns;
   }
 
-  abstract isValidLength(): boolean;
+  abstract isValidInput(): boolean;
 
   setQuestion(): QuestionBuilder {
     this.question.question = this.textColumns[1];
@@ -39,7 +39,7 @@ export abstract class QuestionBuilder {
   abstract setAnswers(): QuestionBuilder
   abstract setIsAutoGenerateOthers(): QuestionBuilder
   abstract setIsCheckOrder(): QuestionBuilder
-  abstract setOthers(): QuestionBuilder
+  abstract setOthers(lang: string): QuestionBuilder
 
   build(): Question {
     return this.question;

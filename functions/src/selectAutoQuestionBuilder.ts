@@ -1,6 +1,7 @@
 import {QuestionBuilder} from "./questionBuilder";
+import {strings} from "./strings";
 
-export class SelectQuestionBuilder extends QuestionBuilder {
+export class SelectAutoQuestionBuilder extends QuestionBuilder {
 
   constructor(textColumns: string[]) {
     super(textColumns);
@@ -8,7 +9,10 @@ export class SelectQuestionBuilder extends QuestionBuilder {
   }
 
   isValidInput(): boolean {
-    return this.textColumns.length >= 4
+    if (this.textColumns.length < 4) return false;
+    if (isNaN(parseInt(this.textColumns[3], 10))) return false;
+    if (parseInt(this.textColumns[3], 10) > 5) return false;
+    return true;
   }
 
   setAnswer(): QuestionBuilder {
@@ -21,6 +25,7 @@ export class SelectQuestionBuilder extends QuestionBuilder {
   }
 
   setIsAutoGenerateOthers(): QuestionBuilder {
+    this.question.isAutoGenerateOthers = true;
     return this;
   }
 
@@ -29,7 +34,7 @@ export class SelectQuestionBuilder extends QuestionBuilder {
   }
 
   setOthers(lang: string): QuestionBuilder {
-    this.question.others = this.textColumns.slice(3, 8);
+    this.question.others = Array(parseInt(this.textColumns[3], 10)).fill(strings.auto[lang]);
     return this;
   }
 }
