@@ -38,26 +38,24 @@ export const parseCSV = function (text: string, lang: string = "ja"): Test {
 
       if (textColumns[0] === strings.title[lang]) {
         test.title = textColumns[1];
-      }
-
-      if (textColumns[0] === strings.explanation[lang]) {
+      }else if (textColumns[0] === strings.explanation[lang]) {
         if (test.questions.length > 0 && textColumns.length >= 2) {
           test.questions[test.questions.length - 1].explanation = textColumns[1]
         }
-      }
-
-      const builder = initQuestionBuilder(textColumns, lang);
-      if (builder.isValidInput()) {
-        test.questions.push(
-          builder.setQuestion()
-            .setAnswer()
-            .setAnswers()
-            .setIsAutoGenerateOthers()
-            .setIsCheckOrder()
-            .setOthers(lang)
-            .setOrder(test.questions.length)
-            .build()
-        );
+      }else {
+        const builder = initQuestionBuilder(textColumns, lang);
+        if (builder.isValidInput()) {
+          test.questions.push(
+            builder.setQuestion()
+              .setAnswer()
+              .setAnswers()
+              .setIsAutoGenerateOthers()
+              .setIsCheckOrder()
+              .setOthers(lang)
+              .setOrder(test.questions.length)
+              .build()
+          );
+        }
       }
     }
   );

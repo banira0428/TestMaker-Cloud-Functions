@@ -309,7 +309,7 @@ test('選択完答問題（自動生成かつ順序指定）', () => {
 });
 
 test('解説つき問題', () => {
-    expect(parseCSV('タイトル,問題集¥n記述,問題,答え¥n解説,解説文')).toStrictEqual({
+    expect(parseCSV('タイトル,問題集¥n記述,問題,答え¥n解説,解説文¥n記述,問題,答え')).toStrictEqual({
         title: '問題集',
         lang: "ja",
         questions: [
@@ -322,6 +322,18 @@ test('解説つき問題', () => {
                 isAutoGenerateOthers: false,
                 isCheckOrder: false,
                 order: 0,
+                others: [],
+                type: 0,
+            },
+            {
+                question: '問題',
+                answer: '答え',
+                answers: [],
+                explanation: '',
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 1,
                 others: [],
                 type: 0,
             }
