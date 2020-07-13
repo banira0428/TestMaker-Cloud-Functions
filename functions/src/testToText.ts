@@ -67,5 +67,7 @@ export const generateCSV = function (test: Test): Text {
 };
 
 function escape(text: string): string {
-  return text.split('¥n').join('&lt;br>').split(',').join('&lt;comma>');
+  return text.split('¥n').join('&lt;br>')
+    .split('\n').join('&lt;br>')
+    .split(',').join('&lt;comma>');
 }
