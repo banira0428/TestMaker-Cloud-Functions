@@ -50,6 +50,27 @@ test('選択問題', () => {
     })
 });
 
+test('選択問題（末尾空白）', () => {
+    expect(parseCSV('選択,問題,答え,はずれ,はずれ,')).toStrictEqual({
+        title: 'no title',
+        lang: "ja",
+        questions: [
+            {
+                question: '問題',
+                answer: '答え',
+                answers: [],
+                explanation: "",
+                imagePath: "",
+                isAutoGenerateOthers: false,
+                isCheckOrder: false,
+                order: 0,
+                others: ['はずれ', 'はずれ'],
+                type: 1,
+            }
+        ]
+    })
+});
+
 test('選択問題（末尾削除）', () => {
     expect(parseCSV('選択,問題,答え,はずれ,はずれ,はずれ,はずれ,はずれ,はずれ')).toStrictEqual({
         title: 'no title',
