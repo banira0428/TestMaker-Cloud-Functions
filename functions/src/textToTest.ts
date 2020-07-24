@@ -28,11 +28,11 @@ export const parseCSV = function (text: string, lang: string = "ja"): Test {
 
   textRows.forEach((row) => {
       const textColumns = row
+        .split('\r').join('')
         .split(',')
         .filter((it: string) => it.length > 0)
         .map((it: string) => it.split('<comma>').join(',')
           .split('&lt;comma>').join(',')
-          .split('\r').join('')
           .split('&lt;br>').join('\n')
           .split('<br>').join('\n'));
 
