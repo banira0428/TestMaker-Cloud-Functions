@@ -21,7 +21,7 @@ export const textToTest = functions.https.onRequest((req, res) => {
 export const parseCSV = function (text: string, title: string = 'no title', lang: string = "ja"): Test {
   const textRows = text.split('¥n');
   const test: Test = {
-    title: title,
+    title: title.split('.')[0],
     lang: "ja",
     questions: []
   };

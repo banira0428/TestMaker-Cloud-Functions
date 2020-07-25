@@ -454,4 +454,46 @@ test('改行つき問題(\r)', () => {
     })
 });
 
+test('問題集のタイトル（拡張子あり）', () => {
+  expect(parseCSV('記述,問題,答え','問題集.txt')).toStrictEqual({
+    title: '問題集',
+    lang: "ja",
+    questions: [
+      {
+        question: '問題',
+        answer: '答え',
+        answers: [],
+        explanation: '',
+        imagePath: "",
+        isAutoGenerateOthers: false,
+        isCheckOrder: false,
+        order: 0,
+        others: [],
+        type: 0,
+      }
+    ]
+  })
+});
+
+test('問題集のタイトル（拡張子無し）', () => {
+  expect(parseCSV('記述,問題,答え','問題集')).toStrictEqual({
+    title: '問題集',
+    lang: "ja",
+    questions: [
+      {
+        question: '問題',
+        answer: '答え',
+        answers: [],
+        explanation: '',
+        imagePath: "",
+        isAutoGenerateOthers: false,
+        isCheckOrder: false,
+        order: 0,
+        others: [],
+        type: 0,
+      }
+    ]
+  })
+});
+
 
