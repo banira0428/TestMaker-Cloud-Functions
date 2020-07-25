@@ -15,13 +15,13 @@ import {CompleteOrderQuestionBuilder} from "./completeOrderQuestionBuilder";
 export const textToTest = functions.https.onRequest((req, res) => {
   console.log(req.body);
   const csvText = req.body.text;
-  res.status(200).send(parseCSV(csvText, req.body.lang));
+  res.status(200).send(parseCSV(csvText, req.body.title, req.body.lang));
 });
 
-export const parseCSV = function (text: string, lang: string = "ja"): Test {
+export const parseCSV = function (text: string, title: string = 'no title', lang: string = "ja"): Test {
   const textRows = text.split('¥n');
   const test: Test = {
-    title: 'no title',
+    title: title,
     lang: "ja",
     questions: []
   };
@@ -38,11 +38,11 @@ export const parseCSV = function (text: string, lang: string = "ja"): Test {
 
       if (textColumns[0] === strings.title[lang]) {
         test.title = textColumns[1];
-      }else if (textColumns[0] === strings.explanation[lang]) {
+      } else if (textColumns[0] === strings.explanation[lang]) {
         if (test.questions.length > 0 && textColumns.length >= 2) {
           test.questions[test.questions.length - 1].explanation = textColumns[1]
         }
-      }else {
+      } else {
         const builder = initQuestionBuilder(textColumns, lang);
         if (builder.isValidInput()) {
           test.questions.push(
