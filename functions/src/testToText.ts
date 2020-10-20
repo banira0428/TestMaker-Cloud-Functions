@@ -15,7 +15,7 @@ export const generateCSV = function (test: Test): Text {
   test.questions.forEach((it: Question) => {
     switch (it.type) {
       case 0:
-        result += strings.write_problem[lang] + ',' + escape(it.question) + ',' + it.answer + '\n';
+        result += strings.write_problem[lang] + ',' + escape(it.question) + ',' + escape(it.answer) + '\n';
         break;
       case 1:
         if (it.isAutoGenerateOthers) {
@@ -30,7 +30,7 @@ export const generateCSV = function (test: Test): Text {
         }else{
           result += strings.complete_problem[lang]
         }
-        result += ',' + escape(it.question) + ',' + it.answers.join(',') + '\n';
+        result += ',' + escape(it.question) + ',' + it.answers.map(escape).join(',') + '\n';
         break;
       case 3:
         if (it.isAutoGenerateOthers) {
