@@ -10,6 +10,11 @@ admin.initializeApp();
 exports.onTestCreated = functions.firestore.document('tests/{documentId}').onCreate((snap, context) => {
   const data = snap.data();
   if (data !== undefined) {
+
+    if(!isPublic(data)) {
+      return
+    }
+
     const client = getClient();
     client.post('/tests', {
       name: data.name,
@@ -22,9 +27,18 @@ exports.onTestCreated = functions.firestore.document('tests/{documentId}').onCre
     }).then().catch(function (error) {
       console.log(error)
     });
+
   }
   return;
 });
+
+export function isPublic(data: any): boolean{
+  if('public' in data){
+    return data.public
+  }else{
+    return true
+  }
+}
 
 exports.deleteTest = functions.firestore
   .document('tests/{documentId}')
@@ -123,7 +137,7 @@ function deleteQueryBatch(db: Firestore, query: Query, batchSize: number, resolv
   return 0;
 }
 
-function getClient(){
+function getClient() {
   return axios.create({
     baseURL: "https://test-maker-server.herokuapp.com/",
     headers: {
